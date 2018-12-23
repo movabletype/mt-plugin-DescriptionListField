@@ -1,0 +1,45 @@
+id: DescriptionListField
+name: DescriptionListField
+version: 1.0
+author_name: Six Apart Ltd.
+author_link: https://movabletype.org
+description: <__trans phrase="This plugin adds a description list content field type.">
+l10n_lexicon:
+    ja:
+        This plugin adds a description list content field type.: "説明リストコンテンツフィールドを追加"
+        Description List: 説明リスト
+        Title: 用語
+        Value: 説明
+        Add new [_1]: 新しい[_1]を追加
+
+content_field_types:
+    description_list:
+        label: Description List
+        data_type: 'text'
+        order: 210,
+        icon_class: 'ic_list'
+        can_data_label_field: 0
+        data_load_handler: $DescriptionListField::DescriptionListField::ContentFieldType::DescriptionListField::data_load_handler
+        field_html: 'field_html/field_html_description_list.tmpl'
+        field_html_params: $DescriptionListField::DescriptionListField::ContentFieldType::DescriptionListField::field_html_params
+        field_value_handler: $DescriptionListField::DescriptionListField::ContentFieldType::DescriptionListField::field_value_handler
+        replaceable: 1
+        tag_handler: $DescriptionListField::DescriptionListField::ContentFieldType::DescriptionListField::tag_handler
+        feed_value_handler: $DescriptionListField::DescriptionListField::ContentFieldType::DescriptionListField::feed_value_handler
+        preview_handler: $DescriptionListField::DescriptionListField::ContentFieldType::DescriptionListField::preview_handler
+        replace_handler: $DescriptionListField::DescriptionListField::ContentFieldType::DescriptionListField::replace_handler
+        search_handler: $DescriptionListField::DescriptionListField::ContentFieldType::DescriptionListField::search_handler
+        list_props:
+            description_llist:
+                base: '__virtual.string'
+                col: 'value_varchar'
+                display: 'none'
+                filter_editable: 0
+                html: $DescriptionListField::DescriptionListField::ContentFieldType::DescriptionListField::list_prop_html
+                terms: $DescriptionListField::DescriptionListField::ContentFieldType::DescriptionListField::list_prop_terms
+        options_html: 'content_field_type_options/description_list.tmpl'
+        options:
+            - label
+            - description
+            - required
+            - display

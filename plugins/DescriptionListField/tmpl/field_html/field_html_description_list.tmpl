@@ -1,0 +1,133 @@
+<div id="description-list-field-<mt:var name="content_field_id" escape="html">" class="description-list-field-container" <mt:var name="required">>
+<mt:loop name="description_list_data">
+  <div class="mt-draggable" draggable="true" aria-grabbed="false">
+    <div class="col-auto">
+      <mtapp:svgicon id="ic_move" title="Draggable">
+    </div>
+    <div class="col text-wrap">
+      <div class="mt-flexBreak"></div>
+	  <div class="mt-draggable__content description-list-data">
+        <label><__trans phrase="Title"></label>
+	    <input type="text" class="form-control" name="description-list-field-<mt:var name="content_field_id" escape="html">-title" value="<mt:var name="title" escape="html">" mt:watch-change="1">
+        <label><__trans phrase="Description"></label>
+        <textarea name="description-list-field-<mt:var name="content_field_id" escape="html">-value" class="form-control" rows="3" mt:watch-change="1"><mt:var name="value" escape="html"></textarea>
+	  </div>
+    </div>
+    <div class="col-auto mr-3 d-none d-md-block">
+      <a href="javascript:void(0)" class="remove">
+        <__trans phrase="Remove">
+      </a>
+    </div>
+  </div>
+</mt:loop>
+  <div class="mt-3">
+    <a href="javascript:void(0)" class="add-description-list-button d-block d-md-inline-block" data-mt-content-field-id="<mt:var name="content_field_id">"><mtapp:svgicon id="ic_add" title="<__trans phrase="Add new pair">" size="sm"><__trans phrase="Add new [_1]" params="<mt:var name="field_label" escape="html" escape="html">"></a>
+  </a>
+  </div>
+</div>
+
+<mt:unless name="description-list-boilerplate">
+  <mt:setvar name="description-list-boilerplate" value="1">
+<div class="description-list-boilerplate" style="display: none;">
+  <div class="mt-draggable" draggable="true" aria-grabbed="false">
+    <div class="col-auto">
+      <mtapp:svgicon id="ic_move" title="Draggable">
+    </div>
+    <div class="col text-wrap">
+      <div class="mt-flexBreak"></div>
+      <div class="mt-draggable__content description-list-data">
+        <label><__trans phrase="Title"></label>
+	    <input type="text" class="form-control" value="" mt:watch-change="1">
+        <label><__trans phrase="Description"></label>
+        <textarea class="form-control" rows="3" mt:watch-change="1"></textarea>
+      </div>
+    </div>
+    <div class="col-auto mr-3 d-none d-md-block">
+      <a href="javascript:void(0)" class="remove">
+        <__trans phrase="Remove">
+      </a>
+    </div>
+  </div>
+</div>
+</mt:unless>
+
+<mt:unless name="setup_description_list_js">
+<mt:var name="setup_description_list_js" value="1">
+
+<mt:setvarblock name="jq_js_include" append="1">
+function removeDescriptionList() {
+  jQuery(this).parents('.mt-draggable').remove();
+  setDirty(true);
+  app.setDirty();
+}
+
+function addDescriptionList() {
+  var $this = jQuery(this);
+  var required = $this.data('mt-required') ? true : false;
+
+  var $boilerPlate = jQuery('.description-list-boilerplate > div');
+  var $newDiv = $boilerPlate.clone();
+
+  $newDiv.find("input").prop('name', 'description-list-field-<mt:var name="content_field_id" escape="html">-title')
+  $newDiv.find("textarea").prop('name', 'description-list-field-<mt:var name="content_field_id" escape="html">-value')
+
+  $this.parent().before($newDiv.get(0));
+
+  setDirty(true);
+  (app.getIndirectMethod('setDirty'))();
+}
+
+window.descriptionListFieldSortableChanged = {};
+
+jQuery('a.add-description-list-button').click(addDescriptionList)
+
+jQuery('.description-list-field-container').on('click', 'a.remove', removeDescriptionList);
+
+jQuery('#description-list-field-<mt:var name="content_field_id" escape="html">').sortable({
+  items: 'div.mt-draggable[draggable=true][aria-grabbed]',
+  handle: MT.Util.isMobileView() ? '.col-auto:first' : false,
+  placeholder: 'placeholder',
+  distance: 3,
+  opacity: 0.8,
+  cursor: 'move',
+  forcePlaceholderSize: true,
+  containment: '.mt-mainContent',
+  start: function (event, ui) {
+    ui.item.attr('aria-grabbed', true);
+
+    if (window.descriptionListFieldSortableChanged[<mt:var name="content_field_id" escape="js">]) {
+      ui.helper.offset({
+        top: ui.helper.offset().top + jQuery('body').scrollTop()
+      });
+    }
+  },
+  sort: function (event, ui) {
+    if (window.descriptionListFieldSortableChanged[<mt:var name="content_field_id" escape="js">]) {
+      ui.helper.offset({
+        top: ui.helper.offset().top + jQuery('body').scrollTop()
+      });
+    }
+  },
+  change: function (event, ui) {
+    window.descriptionListFieldSortableChanged[<mt:var name="content_field_id" escape="js">] = true;
+  },
+  stop: function (event, ui) {
+    ui.item.attr('aria-grabbed', false);
+  }
+});
+
+jQuery.mtValidateAddRules({
+  'div.description-list-field-container': function ($e) {
+    var required = $e.data('mt-required') ? true : false;
+    var selectedCount = $e.children('.mt-draggable').length;
+    if ( required && selectedCount === 0 ) {
+        this.error = true;
+        this.errstr = trans('This field is required');
+        return false;
+    }
+    return true;
+  }
+});
+
+</mt:setvarblock>
+</mt:unless>
