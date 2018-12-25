@@ -1,5 +1,17 @@
 <mt:app:ContentFieldOptionGroup
    type="description_list">
 
+  <mtapp:ContentFieldOption
+     id="description-list-title-label"
+     label="<__trans phrase="Title Label">">
+    <input ref="title_label" type="text" name="title_label" id="description-list-title-label-fld" class="form-control w-25" value={ options.title_label || 0 }>
+  </mtapp:ContentFieldOption>
+
+  <mtapp:ContentFieldOption
+     id="description-list-value-label"
+     label="<__trans phrase="Value Label">">
+    <input ref="value_label" type="text" name="value_label" id="description-list-value-label-fld" class="form-control w-25" value={ options.value_label || 0 }>
+  </mtapp:ContentFieldOption>
+  
 </mt:app:ContentFieldOptionGroup>
 

@@ -11,6 +11,8 @@ l10n_lexicon:
         Title: 用語
         Value: 説明
         Add new [_1]: 新しい[_1]を追加
+        Title Label: タイトルのラベル
+        Value Label: 説明のラベル
 
 content_field_types:
     description_list:
@@ -43,3 +45,5 @@ content_field_types:
             - description
             - required
             - display
+            - title_label
+            - value_label
