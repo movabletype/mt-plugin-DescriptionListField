@@ -6,13 +6,14 @@ import livereload from "rollup-plugin-livereload";
 import sveltePreprocess from "svelte-preprocess";
 import typescript from '@rollup/plugin-typescript';
 import svelte from "rollup-plugin-svelte";
+// @ts-ignore
 import cleaner from "rollup-plugin-cleaner";
 
 const production = !process.env.ROLLUP_WATCH;
-const outputDir = "mt-static/plugins/ContentFieldTypeEmailSvelte/dist";
+const outputDir = "mt-static/plugins/DescriptionListField/dist";
 
 export default {
-  input: ["src/email.ts"],
+  input: ["src/svelte.ts"],
   output: {
     dir: outputDir,
     format: "esm",
