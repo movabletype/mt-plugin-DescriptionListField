@@ -40,6 +40,7 @@ content_field_types:
                 html: $DescriptionListField::DescriptionListField::ContentFieldType::DescriptionListField::list_prop_html
                 terms: $DescriptionListField::DescriptionListField::ContentFieldType::DescriptionListField::list_prop_terms
         options_html: 'content_field_type_options/description_list.tmpl'
+        options_script: 'content_field_type_options/description_list_script.tmpl'
         options:
             - label
             - description
