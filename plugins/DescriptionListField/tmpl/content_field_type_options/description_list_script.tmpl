@@ -1,4 +1,8 @@
 <script type="module">
   import { DescriptionList, mountDescriptionListSvelte } from "<mt:var name="static_uri">plugins/DescriptionListField/dist/svelte.js?v=<mt:var name="mt_version_id" escape="url">";
   ContentTypeEditor.registerCustomType("description-list", mountDescriptionListSvelte);
+<mt:if name="language_tag" eq="ja">
+  Lexicon["Title Label"] = "タイトルのラベル";
+  Lexicon["Value Label"] = "説明のラベル";
+</mt:if>
 </script>
